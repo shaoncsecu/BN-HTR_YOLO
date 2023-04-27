@@ -110,8 +110,14 @@ def main():
     model_src = st.sidebar.radio("Select yolov5 weight file", ["Line Segmentation Model", "Word Segmentation Model"])
     # URL, upload file (max 200 mb)
     if model_src == "Word Segmentation Model":
-        #user_model_path = get_user_model()
-        user_model_path = 'models/word_model_best.pt'
+        user_model_path = get_user_model()
+        if user_model_path:
+            cfg_model_path = user_model_path
+
+        st.sidebar.text(cfg_model_path.split("/")[-1])
+        st.sidebar.markdown("---")
+    else:
+        user_model_path = get_user_model()
         if user_model_path:
             cfg_model_path = user_model_path
 
@@ -119,9 +125,10 @@ def main():
         st.sidebar.markdown("---")
 
 
+
     # check if model file is available
     if not os.path.isfile(cfg_model_path):
-        st.warning("Model file not available!!!, please added to the model folder.", icon="⚠️")
+        st.warning("Model file not available!!!, please add to the model folder.", icon="⚠️")
     else:
         # device options
         if torch.cuda.is_available():
