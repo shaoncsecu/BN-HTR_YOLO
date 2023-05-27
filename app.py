@@ -5,6 +5,7 @@ from PIL import Image
 import torch
 import os
 import time
+import cv2
 
 st.set_page_config(layout="wide")
 
