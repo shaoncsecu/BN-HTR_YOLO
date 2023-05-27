@@ -68,7 +68,7 @@ def infer_image(img, size=None):
 
 @st.cache_resource
 def load_model(path, device):
-    model_ = torch.hub.load('https://github.com/ultralytics/yolov5', 'custom', path=path, force_reload=True)
+    model_ = torch.hub.load('yolov5', 'custom', path=path, source='local', force_reload=True)
     model_.to(device)
     print("model to ", device)
     return model_
