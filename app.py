@@ -80,7 +80,7 @@ def download_model(url):
     return model_file
 
 
-def get_user_model():
+def get_user_model(model_src):
     model_src = st.sidebar.radio("Model source", ["file upload", "url"])
     model_file = None
     if model_src == "file upload":
@@ -90,7 +90,10 @@ def get_user_model():
             with open(model_file, 'wb') as out:
                 out.write(model_bytes.read())
     else:
-        url = st.sidebar.text_input("model url")
+        suggestion = ["Line Segmentation Model": "https://huggingface.co/crusnic/BN-DRISHTI/resolve/main/models/line_model_best.pt", 
+                      "Word Segmentation Model": "https://huggingface.co/crusnic/BN-DRISHTI/resolve/main/models/word_model_best.pt"]
+        
+        url = st.sidebar.text_input("Model URL:\ne.g., suggestion[model_src]")
         if url:
             model_file_ = download_model(url)
             if model_file_.split(".")[-1] == "pt":
@@ -110,14 +113,14 @@ def main():
     model_src = st.sidebar.radio("Select yolov5 weight file", ["Line Segmentation Model", "Word Segmentation Model"])
     # URL, upload file (max 200 mb)
     if model_src == "Word Segmentation Model":
-        user_model_path = get_user_model()
+        user_model_path = get_user_model(model_src)
         if user_model_path:
             cfg_model_path = user_model_path
 
         st.sidebar.text(cfg_model_path.split("/")[-1])
         st.sidebar.markdown("---")
     else:
-        user_model_path = get_user_model()
+        user_model_path = get_user_model(model_src)
         if user_model_path:
             cfg_model_path = user_model_path
 
