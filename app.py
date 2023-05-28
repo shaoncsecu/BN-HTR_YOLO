@@ -93,7 +93,7 @@ def get_user_model(model_src):
         suggestion = {"Line Segmentation Model": "https://huggingface.co/crusnic/BN-DRISHTI/resolve/main/models/line_model_best.pt", 
                       "Word Segmentation Model": "https://huggingface.co/crusnic/BN-DRISHTI/resolve/main/models/word_model_best.pt"}
         
-        url = st.sidebar.text_input("Model URL:\ne.g., suggestion[model_src]")
+        url = st.sidebar.text_input(f'Model URL:\ne.g., {suggestion[model_src]}')
         if url:
             model_file_ = download_model(url)
             if model_file_.split(".")[-1] == "pt":
