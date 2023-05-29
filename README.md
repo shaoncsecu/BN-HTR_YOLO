@@ -2,7 +2,7 @@
 ### This is a Demo of our Custom YOLOv5 Line/Word Segmentation Models for Bangla Handwritings using Streamlit
 
 ## [Try Out Live Demo](https://bn-htr-yolo.streamlit.app/):
-- By **Default** the selected models (line/word) are *downloaded automatically* from our [HuggingFace Model Hub](https://huggingface.co/crusnic/BN-DRISHTI/tree/main/models).
+- By **Default** the selected model will be *Downloaded Automatically* from our [HuggingFace Model Hub](https://huggingface.co/crusnic/BN-DRISHTI/tree/main/models).
 - You can also use your own model (.pt) file through **File Upload** option while running the demo.
  <br>**OR**</br>
 - You can paste the models **Link** directly to the **URL** option, for example:
