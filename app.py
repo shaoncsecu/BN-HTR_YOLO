@@ -81,19 +81,25 @@ def download_model(url):
 
 
 def get_user_model(model_type):
-    model_src = st.sidebar.radio("Model source", ["file upload", "url"])
+    model_src = st.sidebar.radio("Model source", ["Automatic", "Upload Model File", "From URL"])
     model_file = None
-    if model_src == "file upload":
+    
+    if model_src == "Automatic":
+        model_url = {"Line Segmentation Model": "https://huggingface.co/crusnic/BN-DRISHTI/resolve/main/models/line_model_best.pt", 
+                      "Word Segmentation Model": "https://huggingface.co/crusnic/BN-DRISHTI/resolve/main/models/word_model_best.pt"}
+        
+        model_file_ = download_model(model_url[model_type])
+        if model_file_.split(".")[-1] == "pt":
+            model_file = model_file_
+                
+    elif model_src == "Upload Model File":
         model_bytes = st.sidebar.file_uploader("Upload a model file", type=['pt'])
         if model_bytes:
             model_file = "models/uploaded_" + model_bytes.name
             with open(model_file, 'wb') as out:
                 out.write(model_bytes.read())
     else:
-        suggestion = {"Line Segmentation Model": "https://huggingface.co/crusnic/BN-DRISHTI/resolve/main/models/line_model_best.pt", 
-                      "Word Segmentation Model": "https://huggingface.co/crusnic/BN-DRISHTI/resolve/main/models/word_model_best.pt"}
-        prompt = 'Model URL:\ne.g., ' + str(suggestion[model_type])
-        url = st.sidebar.text_input(prompt)
+        url = st.sidebar.text_input('Model URL:')
         if url:
             model_file_ = download_model(url)
             if model_file_.split(".")[-1] == "pt":
